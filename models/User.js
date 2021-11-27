@@ -27,7 +27,7 @@ User.init(
                 {
                     isEmail: true
                 }
-      },
+        },
     password: 
         {
             type: DataTypes.STRING,
@@ -36,7 +36,7 @@ User.init(
             len: [4]
             }
         },
-      firstName: 
+    first_name: 
         {
             type: DataTypes.STRING,
             allowNull: false,
@@ -44,7 +44,7 @@ User.init(
             len: [4]
             }
         },
-      lastName: 
+    last_name: 
         {
             type: DataTypes.STRING,
             allowNull: false,
