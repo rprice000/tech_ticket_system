@@ -16,9 +16,16 @@ router.get('/login', (req, res) => {
   router.get('/logout', (req, res) => {
     res.render('logout');
 });
+router.get('/register', (req, res) => {
+    res.render('register');
+});
 
-router.get('/signup', (req, res) => {
-    res.render('signup');
+router.get('/active', (req, res) => {
+    res.render('active');
+});
+
+router.get('/single-ticket', (req, res) => {
+    res.render('single-ticket');
 });
 
 // router.get('/', (req, res) => {
