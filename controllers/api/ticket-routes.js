@@ -18,6 +18,7 @@ router.get('/active', (req, res) => {
             'room_number',
             'problem_title',
             'problem_summary',
+            'created_at'
           ],
           include: [
             {
@@ -53,6 +54,7 @@ router.get('/closed', (req, res) => {
             'room_number',
             'problem_title',
             'problem_summary',
+            'created_at'
           ],
           include: [
             {
@@ -146,14 +148,8 @@ router.post('/', (req, res) => {
 // UPDATES TICKET
 // PUT /api/tickets/1
 router.put('/:id', (req, res) => {
-    Ticket.update({
-          created_by: req.body.created_by,
-          building: req.body.building,
-          room_number: req.body.room_number,
-          problem_title: req.body.problem_title,
-          problem_summary: req.body.problem_summary,
-          ticket_status: req.body.ticketStatus,
-        },
+    Ticket.update(
+        req.body,
         {
           where: {
             id: req.params.id

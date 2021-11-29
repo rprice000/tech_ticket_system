@@ -1,7 +1,4 @@
 const router = require('express').Router();
-const { userdata } = require('../seeds/dummy');
-
-
 const {User, Ticket, Tech, Note} = require('../models');
 
 
@@ -10,12 +7,24 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
+    // if (req.session.loggedIn) {
+    //   res.redirect('/');
+    //   return;
+    // }
+  
     res.render('login');
   });
 
-  router.get('/logout', (req, res) => {
-    res.render('logout');
-});
+//   router.get('/logout', (req, res) => {
+//     if (req.session.loggedIn) {
+//         req.session.destroy(() => {
+//           res.status(204).end();
+//         });
+//       }
+//       else {
+//         res.status(404).end();
+//       }
+// });
 router.get('/register', (req, res) => {
     res.render('register');
 });

@@ -45,7 +45,7 @@ class Note extends Model {}
     },
     {
       sequelize,
-      timestamps: false,
+      timestamps: true,
       freezeTableName: true,
       underscored: true,
       modelName: 'note'

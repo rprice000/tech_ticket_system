@@ -2,8 +2,6 @@ const router = require('express').Router();
 const { User, Ticket, Note } = require('../../models');
 
 
-
-
 // GET /api/users
 router.get('/', (req, res) => {
 
@@ -88,7 +86,7 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
     User.findOne({
       where: {
-        email: req.body.email
+        username: req.body.username
       }
     }).then(dbUserData => {
       if (!dbUserData) {
