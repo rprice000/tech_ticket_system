@@ -18,17 +18,17 @@ Ticket.init(
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-        roomNumber: 
+        room_number: 
             {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-        problemTitle:
+        problem_title:
             {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-        problemSummary:
+        problem_summary:
             {
                 type: DataTypes.TEXT,
                 allowNull: false,
@@ -36,7 +36,7 @@ Ticket.init(
                     len: [1]
                   }
             },
-        ticketStatus:
+        ticket_status:
             {   
             //*** NEED TO LOOK AT ***
                 type: DataTypes.BOOLEAN,

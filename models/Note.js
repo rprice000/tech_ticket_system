@@ -16,7 +16,7 @@ class Note extends Model {}
               primaryKey: true,
               autoIncrement: true
           },
-      techNote:
+      tech_note:
           {
               type: DataTypes.TEXT,
               allowNull: false,
@@ -24,7 +24,7 @@ class Note extends Model {}
                 len: [1]
               }
           },
-       user_id: 
+      user_id: 
           {
               type: DataTypes.INTEGER,
               allowNull: false,
@@ -33,7 +33,7 @@ class Note extends Model {}
                 key: 'id'
               }
           },
-        ticket_id: 
+      ticket_id: 
           {
               type: DataTypes.INTEGER,
               allowNull: false,
