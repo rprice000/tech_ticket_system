@@ -1,0 +1,32 @@
+
+DROP TABLE IF EXISTS tech;
+DROP TABLE If EXISTS ticket;
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE user (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    password VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE ticket (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    building VARCHAR(50) NOT NULL,
+    room_number INTEGER NOT NULL,
+    problem_title VARCHAR(50) NOT NULL,
+    problem_summary TEXT NOT NULL,
+    ticket_status BOOLEAN DEFAULT TRUE,
+    user_id INTEGER NOT NULL,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE tech (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    CONSTRAINT fk_ticket FOREIGN KEY (ticket_id) REFERENCES ticket(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_tech FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
