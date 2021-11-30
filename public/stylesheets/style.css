@@ -37,11 +37,6 @@
     background-color: #3486eb;
   }
   
-  .post-list {
-    margin: 0;
-    padding: 0;
-  }
-  
   textarea, input {
     padding: .5%;
     border-radius: 5px;
@@ -117,9 +112,6 @@
     color: azure;
     width: 6mm;
   }
-  .top {
-    align-content: space-between;
-  }
 
   .btn-no-style {
     background: none;
@@ -139,29 +131,13 @@
     color: #3486eb;
   }
   
-  .delete-post-btn {
+  /* .delete-post-btn {
     background-color: #d41414;
   }
   
   .delete-post-btn:hover {
     background-color: #ff643d;
-  }
-  
-  .post {
-    margin-bottom: 2%;
-    line-height: 150%;
-  }
-  
-  .post .title span {
-    font-style: italic;
-    font-size: 90%;
-    color: #7d7d7d;
-  }
-  
-  .edit-link {
-    display: block;
-    margin: -1.5% 0 2% 0;
-  }
+  } */
   
   
   .tech-notes {
