@@ -1,14 +1,17 @@
-async function logout() {
+
+async function logout(event) {
+    event.preventDefault();
+
     const response = await fetch('/api/users/logout', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' }
+        method: 'POST',
+        headers: { "Content-Type":"application/json" }
     });
-  
-    if (response.ok) {
-      document.location.replace('/');
+
+    if(response.ok) {
+        window.location.replace('/login');
     } else {
-      alert(response.statusText);
+        alert(`Could not log you out for some reason.`);
     }
-  }
-  
-  document.querySelector('#logout').addEventListener('click', logout);
+}
+
+document.querySelector('#logout').addEventListener('click', logout);

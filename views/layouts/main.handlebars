@@ -19,14 +19,14 @@
         <a href="/">Tech Ticket System</a>
       </h1>
       <nav>
-        {{!-- {{#if loggedIn}} --}}
-        <a href="/active">| Active Tickets </a>
-        <a href="/inactive"> |  Closed Tickets|</a>
-        <button id="#logout" class="btn-no-style"> Logout</button>
-        {{!-- {{else}} --}}
+        {{#if loggedIn}}
+        <a href="/tickets">Tickets</a>
+        <a href="/dashboard">Dashboard</a>
+        <button id="logout" class="btn-no-style">Logout</button>
+        {{else}}
+        <a href="/login">Login</a>
         <a href="/register">| Register  |</a>
-        <a href="/login">Login |</a>
-        {{!-- {{/if}} --}}
+        {{/if}}
       </nav>
     </header>
     <main>
@@ -35,10 +35,9 @@
     <footer>
     </footer>
   </div>
-  {{!-- {{#if loggedIn}} --}}
+  {{#if loggedIn}}
   <script src="/javascript/logout.js"></script>
-  {{!-- {{/if}} --}}
-
+  {{/if}}
 </body>
 
 </html>

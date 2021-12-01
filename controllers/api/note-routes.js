@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Note, User, Ticket} = require('../../models');
+const { Note, User, Ticket, Tech} = require('../../models');
+const assignTicket = require('../../utils/mail');
 
 router.get('/', (req, res) => {
     Note.findAll({
@@ -13,8 +14,7 @@ router.get('/', (req, res) => {
             'problem_title',
             'problem_summary',
             'ticket_status',
-            'user_id',
-            'ticket_id'
+            'user_id'
             ],
         },
         {
@@ -45,8 +45,7 @@ router.get('/', (req, res) => {
             'problem_title',
             'problem_summary',
             'ticket_status',
-            'user_id',
-            'ticket_id'
+            'user_id'
             ],
         },
         {
@@ -72,10 +71,59 @@ router.get('/', (req, res) => {
 
   // Create Note
   router.post('/', (req, res) => {
+    //The added user_id and ticket_id properties can be included as <input type='hidden' name='user_id' value='{{user_id}}' /> in the form of the handlebars page
     Note.create({
-        techNote: req.body.techNote
+        user_id: req.body.user_id,
+        ticket_id: req.body.ticket_id,
+        tech_note: req.body.tech_note
     })
-      .then(noteData => res.json(noteData))
+      .then(noteData => {
+
+        //res.json(noteData)
+        //Retrieve ticket linked to this note
+        Ticket.findOne({
+          where: {
+            id: req.body.ticket_id
+          },
+          include: [
+            {
+              model: User,
+              attributes: {
+                exclude: ['password']
+              }
+            },
+            {
+              model: Note,
+              include: [
+                {
+                  model: User,
+                  attributes: {
+                    exclude: ['password']
+                  }
+                }
+              ]
+            },
+            {
+              model: Tech,
+              include: [
+                {
+                  model: User,
+                  attributes: ['username']
+                }
+              ]
+            }
+          ]
+        })
+        .then(ticketData => {
+          const formattedTicket = ticketData.get({ plain: true });
+          console.log(formattedTicket);
+          res.json(formattedTicket);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+        })
+      })
       .catch(err => {
           console.log(err);
           res.status(500).json(err);

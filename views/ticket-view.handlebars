@@ -1,0 +1,53 @@
+<div>
+    {{#if isOpen}}
+        {{#if canEdit}}
+            <form id="ticket-update-form">
+                <div>
+                    <label for="problem_title">Title:</label>
+                    <input type="text" name="problem_title" id="problem_title" value="{{ ticketData.problem_title }}" />
+                </div>
+                <div>
+                    <label for="problem_summary">Summary:</label>
+                    <textarea id="problem_summary" name="problem_summary">{{ ticketData.problem_summary }}</textarea>
+                </div>
+                <div>
+                    <label for="building">Building:</label>
+                    <input type="text" name="building" id="building" value="{{ ticketData.building }}" />
+                </div>
+                <div>
+                    <label for="room_number">Room Number:</label>
+                    <input type="number" name="room_number" id="room_number" value="{{ ticketData.room_number }}" />
+                </div>
+                <div>
+                    <button type="submit">Submit Edits</button>
+                </div>
+            </form> 
+        {{else}}
+            <h2>Title: {{ ticketData.problem_title }}</h2>
+            <h3>Summary</h3>
+            <p>{{ ticketData.problem_summary }}</p>
+            <h3>Location</h3>
+            <p>{{ ticketData.building }} (Room - {{ ticketData.room_number }})</p>
+        {{/if}}
+        {{#if canNote}}
+            <h2>Notes</h2>
+            <form id="ticket-note-form">
+                <div>
+                    <label for="tech_note">Note Text:</label>
+                    <textarea id="tech_note" name="tech_note"></textarea>
+                </div>
+                <input type="hidden" id="ticket_id" name="ticket_id" value="{{ ticketData.id }}" />
+                <input type="hidden" id="user_id" name="user_id" value="{{ viewer_id }}" />
+                <div>
+                    <button type="submit">Add Note</button>
+                </div>
+            </form>
+        {{/if}}
+        <h2>Previous Notes</h2>
+        {{#each ticketData.notes}}
+            {{> note-render }}
+        {{/each}}
+    {{else}}
+
+    {{/if}}
+</div>
