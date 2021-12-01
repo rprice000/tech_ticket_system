@@ -12,8 +12,8 @@ if( first_name && last_name && account_username && account_password) {
         body: JSON.stringify({
             first_name,
             last_name,
-            account_username,
-            account_password
+            username: account_username,
+            password: account_password
         }),
         headers: { 'Content-Type': 'application/json' }
       });
