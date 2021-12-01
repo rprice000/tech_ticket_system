@@ -74,6 +74,9 @@ router.post('/', (req, res) => {
           req.session.user_id = dbUserData.id;
           req.session.username = dbUserData.username;
           req.session.loggedIn = true;
+          req.session.first_name = dbUserData.first_name;
+          req.session.last_name = dbUserData.last_name;
+          //Above two lines avoid the need to query this information when using some of the other routes
     
           res.json(dbUserData);
         });
@@ -88,7 +91,7 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
     User.findOne({
       where: {
-        email: req.body.email
+        username: req.body.username
       }
     }).then(dbUserData => {
       if (!dbUserData) {
@@ -107,6 +110,8 @@ router.post('/login', (req, res) => {
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.loggedIn = true;
+        req.session.first_name = dbUserData.first_name;
+        req.session.last_name = dbUserData.last_name;
     
         res.json({ user: dbUserData, message: 'You are now logged in!' });
       });
