@@ -79,8 +79,8 @@ router.get('/dashboard', withAuth, (req, res) => {
     });
 });
 
-router.get('/homepage', (req, res) => {
-    res.render('homepage');
+router.get('/homepage', withAuth, (req, res) => {
+    res.render('homepage', {loggedIn: true, user_id: req.session.user_id});
 });
 module.exports = router;
 

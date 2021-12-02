@@ -159,7 +159,7 @@ router.put('/:id', (req, res) => {
             updateOb[obKeys[i]] = req.body[obKeys[i]];
         }
     }
-    //console.log(updateOb);
+    console.log(updateOb);
     //console.log(req.params.id);
     Ticket.update(updateOb,
         {

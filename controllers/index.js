@@ -7,6 +7,6 @@ const noteRoutes = require('./api/note-routes');
 router.use('/', homeRoutes);
 router.use('/tickets', ticketRoutes);
 router.use('/api', apiRoutes);
-router.use('/api/comments', noteRoutes)
+router.use('/api/notes', noteRoutes)
 
 module.exports = router;

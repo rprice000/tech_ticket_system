@@ -1,31 +1,27 @@
 <form class="ticket-info">
     <div>
-        <label for="problem-title">Title of Problem:</label>
-        <input type="text" id="ticket-title"/>
-    </div>
-    <div>
-        <label for="username">Contact Name:</label>
-        <input type="text" id="ticket-name"/>
-    </div>
-    <div>
-        <label for="user-assigned">Assigned To:</label>
-        <input type="text" id="user-assigned" />
+        <label for="problem_title">Title of Problem:</label>
+        <input type="text" id="problem_title"/>
     </div>
     <div>
         <label for="building">Building:</label>
         <input type="text" id="building"/>
     </div>
     <div>
-        <label for="room-number">Room Number:</label>
-        <input type="text" id="room-number" />
+        <label for="room_number">Room Number:</label>
+        <input type="number" id="room_number" />
     </div>
     <div>
-        <label>Summary of Problem</label>
-        <textarea name="problem-summary"></textarea>
+        <label for="problem_summary">Summary of Problem</label>
+        <textarea name="problem_summary" id="problem_summary"></textarea>
     </div>
     <br>
     <div>
         <button type="submit">Create Ticket</button>
     </div>
-
+    <input type="hidden" id="user_id" value="{{ user_id }}" />
+    <div id="alert_div"></div>
 </form>
+
+
+<script src="/javascript/ticket.js"></script>

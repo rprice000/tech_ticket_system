@@ -46,7 +46,7 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: Note,
-                attributes: ['tech_note'],
+                attributes: ['tech_note', 'created_at'],
                 include: [
                     {
                         model: User,

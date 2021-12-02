@@ -28,6 +28,9 @@ async function assignTicket(senderInfo,recipientInfo,ticket_title,notification_m
             pass: process.env.EMAIL_PASSWORD
         }
     });
+    // key:EMAIL_SERVICE  value: Gmail                  may need quotes
+    // key: EMAIL_USER    value: techticketsystem
+    // key: EMAIL_PASSWORD value: Chevy@123
 
     let emailData = await transporter.sendMail({
         from: `"${senderInfo.first_name} ${senderInfo.last_name}" <${process.env.EMAIL_USER}>`,

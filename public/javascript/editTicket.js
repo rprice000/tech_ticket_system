@@ -3,6 +3,31 @@ const initialTitle = document.querySelector("#problem_title").value.trim();
 const initialSummary = document.querySelector("#problem_summary").value.trim();
 const initialBuilding = document.querySelector("#building").value.trim();
 const initialRoom = parseInt(document.querySelector("#room_number").value);
+// let ticket_status = document.querySelector("#status").getAttribute('data-status');
+
+// ticket_status = Boolean(ticket_status);
+// document.querySelector('#status').textContent = ticket_status ? 'Close Ticket': 'Open Ticket';
+// console.log(typeof ticket_status);
+// async function toggleTicket(event) {
+//     event.preventDefault();
+
+//     const ticket_id = parseInt(document.location.toString().split('/')
+//     [document.location.toString().split('/').length-1]
+//     );
+//     console.log(ticket_id);
+//     const response = await fetch(`/api/tickets/${ticket_id}`, {
+//         method: 'put',
+//         body: JSON.stringify({
+//             ticket_status: !ticket_status
+//         }),
+//         headers: { 'Content-Type': 'application/json' }
+//     });
+//     if (response.ok) {
+//         document.location.replace('/')
+//     }
+// }
+
+// document.querySelector('#status').addEventListener('click', toggleTicket);
 
 //const techButtonEls = document.getElementsByClassName("tech-button");
 

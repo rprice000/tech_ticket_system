@@ -1,6 +1,10 @@
 <div>
     {{#if isOpen}}
         {{#if canEdit}}
+
+            <form>
+                <button type='submit' id='status' data-status='{{ ticketData.ticket_status }}'></button>
+            </form>
             <form id="ticket-update-form">
                 <div>
                     <div>
@@ -41,6 +45,7 @@
                     
                 </ul>
             </div>
+            <script src="/javascript/editTicket.js"></script>
         {{else}}
             <div>
                 <h2>Title: {{ ticketData.problem_title }}</h2>
@@ -71,15 +76,46 @@
                     <button type="submit">Add Note</button>
                 </div>
             </form>
+            <script src="/javascript/note.js"></script>
         {{/if}}
         <h2>Previous Notes</h2>
         {{#each ticketData.notes}}
-            {{> note-render }}
+            {{> notes }}
         {{/each}}
     {{else}}
+
+        {{#if canEdit}}
+            <form>
+                <button type='submit' id='status' data-status='{{ ticketData.ticket_status }}'></button>
+            </form>
+        {{/if}}
+            <div>
+                <h2>Title: {{ ticketData.problem_title }}</h2>
+                <h3>Summary</h3>
+                <p>{{ ticketData.problem_summary }}</p>
+                <h3>Location</h3>
+                <p>{{ ticketData.building }} (Room - {{ ticketData.room_number }})</p>
+            </div>
+            <div>
+                <h3>Currently Assigned Techs</h3>
+                <ul>
+                    {{#each availableTechs }}
+                    {{> tech-list }}
+                    {{/each}}
+                </ul>
+            </div>
+            <h2>Previous Notes</h2>
+            {{#each ticketData.notes}}
+                {{> notes }}
+            {{/each}}
+
+
 
     {{/if}}
 </div>
 {{#if canEdit}}
-    <script src="/javascript/editTicket.js"></script>
+    <script src="/javascript/toggle.js"></script>
+{{/if}}
+{{#if canNote}}
+    {{!-- <script src="/javascript/note.js"></script> --}}
 {{/if}}
