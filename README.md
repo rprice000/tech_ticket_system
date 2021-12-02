@@ -6,7 +6,7 @@
 
 ## Description
 
-Technology support needs increase as an organization grows and expands its technology use.  To effectively deliver that support, technology teams require a means of tracking work and ensuring timely resolutions.  Without ticketing systems technology teams would need to manually sort through hundreds of emails, phone calls, and messages.  This would lead to less efficiency and effectiveness in technology support. A technology ticket system would enable technolgoy teams to capture technical issues, user requests, and other tasks in a document called a ticket.  By systematically capturing tickets and categorizing them correctly, the ticketing system would allow for proper routing of work leading to quicker resolution times.  Furhtermore, the tickets themselves would serve as a record of communication between technology team members and end-users outside of technology departments. This project was designed to provide a minimum viable product that would give technology teams the ability to document ticket requests, ticket status, as well as other relevant information needed to assist in solving technical issues.
+Technology support needs increase as an organization grows and expands its technology use.  To effectively deliver that support, technology teams require a means of tracking work and ensuring timely resolutions.  Without ticketing systems technology teams would need to manually sort through hundreds of emails, phone calls, and messages.  This would lead to less efficiency and effectiveness in technology support. A technology ticket system would enable technology teams to capture technical issues, user requests, and other tasks in a document called a ticket.  By systematically capturing tickets and categorizing them correctly, the ticketing system would allow for proper routing of work leading to quicker resolution times.  Furthermore, the tickets themselves would serve as a record of communication between technology team members and end-users outside of technology departments. This project was designed to provide a minimum viable product that would give technology teams the ability to document ticket requests, ticket status, as well as other relevant information needed to assist in solving technical issues.
 
 ## Table of Contents
 * [Installation](#installation)
@@ -33,12 +33,12 @@ Technology support needs increase as an organization grows and expands its techn
 - npm install nodemailer
 
 ## Screenshots
-*** NEED SCREENSHOTS AND SCREENSHOT LOCTIONS
+- All screenshots are located in the following folders.
+/public/images/..
 
 ## Technologies
 - HTML5
 - CSS3
-- Bootstrap
 - Javascript
 - Node
 - NPM Express
