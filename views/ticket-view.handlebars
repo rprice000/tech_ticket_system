@@ -3,31 +3,60 @@
         {{#if canEdit}}
             <form id="ticket-update-form">
                 <div>
-                    <label for="problem_title">Title:</label>
-                    <input type="text" name="problem_title" id="problem_title" value="{{ ticketData.problem_title }}" />
+                    <div>
+                        <div>
+                            <label for="problem_title">Title:</label>
+                            <input type="text" name="problem_title" id="problem_title" value="{{ ticketData.problem_title }}" />
+                        </div>
+                        <div>
+                            <label for="problem_summary">Summary:</label>
+                            <textarea id="problem_summary" name="problem_summary">{{ ticketData.problem_summary }}</textarea>
+                        </div>
+                        <div>
+                            <label for="building">Building:</label>
+                            <input type="text" name="building" id="building" value="{{ ticketData.building }}" />
+                        </div>
+                        <div>
+                            <label for="room_number">Room Number:</label>
+                            <input type="number" name="room_number" id="room_number" value="{{ ticketData.room_number }}" />
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Assign Techs</h3>
+                        <div class="tech-button-div" id="tech-button-div">
+                            {{#each availableTechs }}
+                                {{> tech-button}}
+                            {{/each}}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="problem_summary">Summary:</label>
-                    <textarea id="problem_summary" name="problem_summary">{{ ticketData.problem_summary }}</textarea>
-                </div>
-                <div>
-                    <label for="building">Building:</label>
-                    <input type="text" name="building" id="building" value="{{ ticketData.building }}" />
-                </div>
-                <div>
-                    <label for="room_number">Room Number:</label>
-                    <input type="number" name="room_number" id="room_number" value="{{ ticketData.room_number }}" />
-                </div>
+                
                 <div>
                     <button type="submit">Submit Edits</button>
                 </div>
-            </form> 
+            </form>
+            <div>
+                <h3>Currently Assigned Techs</h3>
+                <ul id="assigned-techs-list">
+                    
+                </ul>
+            </div>
         {{else}}
-            <h2>Title: {{ ticketData.problem_title }}</h2>
-            <h3>Summary</h3>
-            <p>{{ ticketData.problem_summary }}</p>
-            <h3>Location</h3>
-            <p>{{ ticketData.building }} (Room - {{ ticketData.room_number }})</p>
+            <div>
+                <h2>Title: {{ ticketData.problem_title }}</h2>
+                <h3>Summary</h3>
+                <p>{{ ticketData.problem_summary }}</p>
+                <h3>Location</h3>
+                <p>{{ ticketData.building }} (Room - {{ ticketData.room_number }})</p>
+            </div>
+            <div>
+                <h3>Currently Assigned Techs</h3>
+                <ul>
+                    {{#each availableTechs }}
+                        {{> tech-list }}
+                    {{/each}}
+                </ul>
+            </div>
         {{/if}}
         {{#if canNote}}
             <h2>Notes</h2>
@@ -51,3 +80,6 @@
 
     {{/if}}
 </div>
+{{#if canEdit}}
+    <script src="/javascript/editTicket.js"></script>
+{{/if}}
