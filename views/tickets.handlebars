@@ -1,0 +1,19 @@
+<p>Below are lists of all active tickets and all closed tickets.  Click on the link of a ticket for more information.</p>
+<div class="">
+    <div class="">
+        <h2>Active Tickets</h2>
+        <ul>
+            {{#each activeTickets}}
+                {{> ticket-link }}
+            {{/each}}
+        </ul>
+    </div>
+    <div class="">
+        <h2>Closed Tickets</h2>
+        <ul>
+            {{#each closedTickets}}
+                {{> ticket-link }}
+            {{/each}}
+        </ul>
+    </div>
+</div>
