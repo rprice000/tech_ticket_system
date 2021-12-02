@@ -13,13 +13,13 @@ const ticket_notification = (first,last,title,notify_message,newMessages = []) =
     return [textVersion,htmlVersion];
 };
 
-async function assignTicket(senderInfo,recipientInfo,ticket_title,notification_message) {
+async function assignTicket(senderInfo,recipientInfo,ticket_title,notification_message,newMessages = []) {
     //senderInfo will be that user's first and last name
     //recipient info will be an array of email addresses
     //Process variables will be used for the actual sending account information
     const emails = recipientInfo.join(", ");
 
-    const emailContent = ticket_notification(senderInfo.first_name,senderInfo.last_name,ticket_title,notification_message);
+    const emailContent = ticket_notification(senderInfo.first_name,senderInfo.last_name,ticket_title,notification_message,newMessages);
     
     const transporter = nodemailer.createTransport({
         service: process.env.EMAIL_SERVICE,

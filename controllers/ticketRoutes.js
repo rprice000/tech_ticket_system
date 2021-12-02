@@ -63,13 +63,15 @@ router.get('/:id', (req, res) => {
         }
         
         const convertedTicket = dbTicketData.get({ plain: true });
-        const techIds = convertedTicket.teches.map(tech => tech.id);
+        const techIds = convertedTicket.teches.map(tech => tech.user_id);
         console.log(convertedTicket);
+        console.log(techIds);
         //console.log(techIds);
         //Determine if the user canEdit and/or canNote and if ticket isOpen
         const isOpen = convertedTicket.ticket_status;
-        const canEdit = req.session.user_id === convertedTicket.user_id ? true : false;
+        const canEdit = req.session.user_id === convertedTicket.user_id;
         let canNote = canEdit;
+        console.log(req.session.user_id);
         if(!canNote) {
             for(let i = 0; i < techIds.length; i++) {
                 if(req.session.user_id === techIds[i]) {
@@ -98,11 +100,18 @@ router.get('/:id', (req, res) => {
                         break;
                     }
                 }
+
+                userInfo.buttonClass = isTech ? "isTech" : "notTech";
                 userInfo.isTech = isTech;
                 return userInfo;
             });
+            ticketInfo.availableTechs = formattedUserData;
+            res.render('ticket-view', ticketInfo);
         })
-        res.render('ticket-view', ticketInfo);
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
     })
     .catch(err => {
         console.log(err);
