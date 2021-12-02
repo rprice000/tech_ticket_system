@@ -8,6 +8,7 @@ const hexafy = (inputVal =280) => {
 const svgStart = `<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='-50 -50 100 100'>`;
 let lineW1 = 2;
 
+const deathShadow = `<circle cx='2' cy='0' r='41' fill='black' stroke='none' opacity='0.7' />`;
 const deathstar1 = `<circle cx='0' cy='0' r='40' fill='#${hexafy(135)}${hexafy(140)}${hexafy(155)}' stroke='none' />`;
 const deathstar2 = `<circle cx='23' cy='-14' r='10' fill='#${hexafy(175)}${hexafy(180)}${hexafy(195)}' stroke='#${hexafy(175)}${hexafy(180)}${hexafy(195)}' stroke-width='${lineW1}' />`;
 const deathstar3 = `<circle cx='23' cy='-14' r='10' fill='none' stroke='#${hexafy(135)}${hexafy(140)}${hexafy(155)}' stroke-width='${lineW1}' opacity='0.7' />`;
@@ -35,12 +36,12 @@ const shadow2 = `<text x='-27' y='34' fill='black' font-size='17'>System</text>`
 
 const rayBlast = `<line x1='23' y1='-14' x2='50' y2='-35' stroke='red' stroke-width='${1.2*lineW1}' />`;
 
-const view1 = svgStart + deathstar1 + deathstar2 + deathstar3 + shadow1 + shadow2 + title1 + title2 + "</svg>";
-const view2 = svgStart + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + shadow1 + shadow2 + title1 + title2 + "</svg>";
-const view3 = svgStart + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + redCircle(3,0.25) + shadow1 + shadow2 + title1 + title2 + "</svg>";
-const view4 = svgStart + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + redCircle(5,0.60) + shadow1 + shadow2 + title1 + title2 + "</svg>";
-const view5 = svgStart + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + redCircle(7,0.95) + shadow1 + shadow2 + title1 + title2 + "</svg>";
-const view6 = svgStart + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + rayBlast + "</svg>";
+const view1 = svgStart + deathShadow + deathstar1 + deathstar2 + deathstar3 + shadow1 + shadow2 + title1 + title2 + "</svg>";
+const view2 = svgStart + deathShadow + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + shadow1 + shadow2 + title1 + title2 + "</svg>";
+const view3 = svgStart + deathShadow + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + redCircle(3,0.25) + shadow1 + shadow2 + title1 + title2 + "</svg>";
+const view4 = svgStart + deathShadow + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + redCircle(5,0.60) + shadow1 + shadow2 + title1 + title2 + "</svg>";
+const view5 = svgStart + deathShadow + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + redCircle(7,0.95) + shadow1 + shadow2 + title1 + title2 + "</svg>";
+const view6 = svgStart + deathShadow + deathstar1 + deathstar2 + redLine1 + redLine2 + redLine3 + deathstar3 + rayBlast + "</svg>";
 
 const deathStarView = (view,duration) => {
     return {

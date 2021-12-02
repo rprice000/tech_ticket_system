@@ -1,3 +1,21 @@
 <div>
     <h2>Welcome, {{ userData.first_name }}!</h2>
+    <div>
+        <div>
+            <h3>Your Created Tickets</h3>
+            <ul>
+                {{#each userData.tickets }}
+                    {{> ticket-link }}
+                {{/each}}
+            </ul>
+        </div>
+        <div>
+            <h3>Your Tech Tickets</h3>
+            <ul>
+                {{#each userData.teches }}
+                    {{> ticket-link ticket }}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
 </div>

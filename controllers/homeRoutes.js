@@ -51,13 +51,25 @@ router.get('/dashboard', withAuth, (req, res) => {
             },
             include: [
                 {
-                    model: Ticket
+                    model: Ticket,
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['first_name','last_name']
+                        }
+                    ]
                 },
                 {
                     model: Tech,
                     include: [
                         {
-                            model: Ticket
+                            model: Ticket,
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['first_name','last_name']
+                                }
+                            ]
                         }
                     ]
                 }
@@ -68,6 +80,7 @@ router.get('/dashboard', withAuth, (req, res) => {
         //Will include other models later
         const userStats = userInfo.get({ plain: true });
         console.log(userStats);
+        console.log(userStats.teches);
         res.render('dashboard', {
             userData: userStats,
             loggedIn: true
