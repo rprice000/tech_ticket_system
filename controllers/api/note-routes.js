@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Note, User, Ticket, Tech } = require('../../models');
 const assignTicket = require('../../utils/mail');
+const Op = require('sequelize').Op;
 
 router.get('/', (req, res) => {
   Note.findAll({
@@ -117,7 +118,39 @@ router.post('/', (req, res) => {
         .then(ticketData => {
           const formattedTicket = ticketData.get({ plain: true });
           console.log(formattedTicket);
-          res.json(formattedTicket);
+          //res.json(formattedTicket);
+          //Querying database to see whether threshhold has been reached to send update email
+          const senderInfo = { first_name: formattedTicket.user.first_name, last_name: formattedTicket.user.last_name };
+          const techEmails = formattedTicket.teches.map(tech => tech.user.username );
+          //console.log(techEmails);
+          techEmails.push(formattedTicket.user.username);
+          const emailMessage = `${formattedTicket.problem_summary} (${formattedTicket.building} - Room ${formattedTicket.room_number})`;
+          //See how many notes are attached to this ticket
+          Note.findAll({
+            where: {
+              ticket_id: formattedTicket.id
+            },
+            include: [
+              {
+                model: User,
+                attributes: ['first_name','last_name']
+              }
+            ]
+          })
+          .then(retrievedNotes => {
+            let formattedNotes = retrievedNotes.map(note => note.get({ plain: true }));
+            if(formattedNotes.length%3 === 0) {
+              //Only send out an update email after every third note added
+              formattedNotes = formattedNotes.map(note => {
+                return `${note.tech_note} - added by ${note.user.first_name} ${note.user.last_name}`
+              });
+              //assignTicket(senderInfo,techEmails,formattedTicket.ticket_title,emailMessage,formattedNotes).catch(err => console.log(err));
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+          });
         })
         .catch(err => {
           console.log(err);

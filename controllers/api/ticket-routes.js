@@ -234,7 +234,7 @@ router.put('/:id', (req, res) => {
                                 }
                                 //Send only the latest 3 notes
                                 const sentNotes = formattedNotes.length > 3 ? [formattedNotes[formattedNotes.length - 3],formattedNotes[formattedNotes.length - 2], formattedNotes[formattedNotes.length - 1]] : formattedNotes;
-                                //assignTicket(senderInfo,formattedEmails,req.body.ticket_title,email_message).catch(err => console.log(err));
+                                //assignTicket(senderInfo,formattedEmails,req.body.ticket_title,email_message,sentNotes).catch(err => console.log(err));
                             })
                             .catch(err => {
                                 console.log(err);
