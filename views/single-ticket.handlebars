@@ -1,4 +1,4 @@
-<form>
+
 
     <section>
 
@@ -46,18 +46,22 @@
 
             </section>
         </div>
+
+
         <section>
             <form class="notes-form">
                 <h6 class="titles">Notes:</h6>
                 <div>
                     <textarea name="notes-body"></textarea>
                 </div>
-
                 <div>
                     <button type="submit">Add Notes</button>
                 </div>
             </form>
         </section>
+
+        {{> notes ticket.notes}}
+
     </section>
 
-</form>
+<script src="/javascript/note.js"></script>

@@ -1,7 +1,7 @@
 <div class="notes">
     {{#each this}}
     <section class="note">
-         <p>  Added By {{ user.first_name }} {{ user.last_name }} on {{created_at}}</p>
+         <p>  Added By {{ user.first_name }} {{ user.last_name }} on {{format_date created_at}}</p>
         <div class="text">
             {{ tech_note }}
             </div>
