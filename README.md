@@ -60,7 +60,8 @@ https://github.com/rprice000/tech_ticket_system
 
 
 - Link to Video of Working Application
-****NEED LINK TO HEROKU
+https://dashboard.heroku.com/apps/secure-tundra-62908/resources?justInstalledAddonServiceId=88f985cd-2c0e-452f-b755-f381335db573
+
 ## Version
 
 - 1.0.0
