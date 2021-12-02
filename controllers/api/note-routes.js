@@ -144,7 +144,7 @@ router.post('/', (req, res) => {
               formattedNotes = formattedNotes.map(note => {
                 return `${note.tech_note} - added by ${note.user.first_name} ${note.user.last_name}`
               });
-              assignTicket(senderInfo,techEmails,formattedTicket.ticket_title,emailMessage,formattedNotes).catch(err => console.log(err));
+              assignTicket(senderInfo,techEmails,formattedTicket.problem_title,emailMessage,formattedNotes).catch(err => console.log(err));
             }
           })
           .catch(err => {
