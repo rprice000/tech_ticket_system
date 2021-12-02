@@ -213,8 +213,54 @@ router.put('/:id', (req, res) => {
                                 senderInfo.first_name = "Jack";
                                 senderInfo.last_name = "Skellington";
                             }
-                            const email_message = `${req.body.problem_summary} (${req.body.building} - Room ${req.body.room_number})`;
-                            Note.findAll({
+                            let email_message;
+                            //if not everything was updated
+                            if(!req.body.problem_summary || !req.body.building || !req.body.room_number || !req.body.problem_title) {
+                              Ticket.findOne(
+                                {
+                                  where: {
+                                    id: req.params.id
+                                  }
+                                }
+                              )
+                              .then(existingInfo => {
+                                const formattedExisting = existingInfo.get({ plain: true });
+                                email_message = `${formattedExisting.problem_summary} (${formattedExisting.building} - Room ${formattedExisting.room_number})`;
+                                Note.findAll({
+                                  where: {
+                                      ticket_id: req.params.id
+                                  },
+                                  include: [
+                                      {
+                                          model: User,
+                                          attributes: ['first_name', 'last_name']
+                                      }
+                                  ]
+                                })
+                                .then(retrievedNotes => {
+                                    let formattedNotes = retrievedNotes.map(note => note.get({ plain: true }));
+                                    if(formattedNotes.length > 0) {
+                                        formattedNotes = formattedNotes.map(note => {
+                                            return `${note.tech_note} - added by ${note.user.first_name} ${note.user.last_name}`;
+                                        });
+                                    }
+                                    //Send only the latest 3 notes
+                                    const sentNotes = formattedNotes.length > 3 ? [formattedNotes[formattedNotes.length - 3],formattedNotes[formattedNotes.length - 2], formattedNotes[formattedNotes.length - 1]] : formattedNotes;
+                                    assignTicket(senderInfo,formattedEmails,formattedExisting.ticket_title,email_message,sentNotes).catch(err => console.log(err));
+                                    res.json(existingInfo);
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    res.status(500).json(err);
+                                });
+                              })
+                              .catch(err => {
+                                console.log(err);
+                                res.status(500).json(err);
+                              });
+                            } else {
+                              email_message = `${req.body.problem_summary} (${req.body.building} - Room ${req.body.room_number})`;
+                              Note.findAll({
                                 where: {
                                     ticket_id: req.params.id
                                 },
@@ -224,22 +270,23 @@ router.put('/:id', (req, res) => {
                                         attributes: ['first_name', 'last_name']
                                     }
                                 ]
-                            })
-                            .then(retrievedNotes => {
-                                let formattedNotes = retrievedNotes.map(note => note.get({ plain: true }));
-                                if(formattedNotes.length > 0) {
-                                    formattedNotes = formattedNotes.map(note => {
-                                        return `${note.tech_note} - added by ${note.user.first_name} ${note.user.last_name}`;
-                                    });
-                                }
-                                //Send only the latest 3 notes
-                                const sentNotes = formattedNotes.length > 3 ? [formattedNotes[formattedNotes.length - 3],formattedNotes[formattedNotes.length - 2], formattedNotes[formattedNotes.length - 1]] : formattedNotes;
-                                //assignTicket(senderInfo,formattedEmails,req.body.ticket_title,email_message,sentNotes).catch(err => console.log(err));
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                res.status(500).json(err);
-                            });
+                              })
+                              .then(retrievedNotes => {
+                                  let formattedNotes = retrievedNotes.map(note => note.get({ plain: true }));
+                                  if(formattedNotes.length > 0) {
+                                      formattedNotes = formattedNotes.map(note => {
+                                          return `${note.tech_note} - added by ${note.user.first_name} ${note.user.last_name}`;
+                                      });
+                                  }
+                                  //Send only the latest 3 notes
+                                  const sentNotes = formattedNotes.length > 3 ? [formattedNotes[formattedNotes.length - 3],formattedNotes[formattedNotes.length - 2], formattedNotes[formattedNotes.length - 1]] : formattedNotes;
+                                  assignTicket(senderInfo,formattedEmails,req.body.ticket_title,email_message,sentNotes).catch(err => console.log(err));
+                              })
+                              .catch(err => {
+                                  console.log(err);
+                                  res.status(500).json(err);
+                              });
+                            }
                         })
                         .catch(err => {
                             console.log(err);
@@ -255,8 +302,86 @@ router.put('/:id', (req, res) => {
                   console.log(err);
                   res.status(500).json(err);
               });
+          } else {
+            //Get the email addresses of the included techs
+            Tech.findAll(
+              {
+                  where: {
+                      ticket_id: req.params.id
+                  },
+                  include: [
+                    {
+                      model: User,
+                      attributes: ['username']
+                    }
+                  ]
+              }
+            )
+            .then(emailData => {
+                //Prepare the updated information for email to interested parties
+                let formattedEmails = emailData.map(emailOb => {
+                    return emailOb.get({ plain: true });
+                });
+                formattedEmails = formattedEmails.map(techOb => techOb.user.username);
+                let senderInfo = {};
+                if(req.session.username) {
+                    formattedEmails.push(req.session.username);
+                    senderInfo.first_name = req.session.first_name;
+                    senderInfo.last_name = req.session.last_name;
+                } else {
+                    senderInfo.first_name = "Jack";
+                    senderInfo.last_name = "Skellington";
+                }
+                let email_message;
+                Ticket.findOne(
+                  {
+                    where: {
+                      id: req.params.id
+                    }
+                  }
+                )
+                .then(existingInfo => {
+                  const formattedExisting = existingInfo.get({ plain: true });
+                  email_message = `${formattedExisting.problem_summary} (${formattedExisting.building} - Room ${formattedExisting.room_number})`;
+                  const ticketTitle = formattedExisting.problem_title || "Unknown Ticket Title";
+                  Note.findAll({
+                    where: {
+                        ticket_id: req.params.id
+                    },
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['first_name', 'last_name']
+                        }
+                    ]
+                  })
+                  .then(retrievedNotes => {
+                      let formattedNotes = retrievedNotes.map(note => note.get({ plain: true }));
+                      if(formattedNotes.length > 0) {
+                          formattedNotes = formattedNotes.map(note => {
+                              return `${note.tech_note} - added by ${note.user.first_name} ${note.user.last_name}`;
+                          });
+                      }
+                      //Send only the latest 3 notes
+                      const sentNotes = formattedNotes.length > 3 ? [formattedNotes[formattedNotes.length - 3],formattedNotes[formattedNotes.length - 2], formattedNotes[formattedNotes.length - 1]] : formattedNotes;
+                      assignTicket(senderInfo,formattedEmails,ticketTitle,email_message,sentNotes).catch(err => console.log(err));
+                      res.json(existingInfo);
+                  })
+                  .catch(err => {
+                      console.log(err);
+                      res.status(500).json(err);
+                  });
+                })
+                .catch(err => {
+                  console.log(err);
+                  res.status(500).json(err);
+                });                  
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
           }
-          res.json(ticketData);
         })
         .catch(err => {
           console.log(err);

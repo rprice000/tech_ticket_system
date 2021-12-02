@@ -122,8 +122,8 @@ router.post('/', (req, res) => {
           //Querying database to see whether threshhold has been reached to send update email
           const senderInfo = { first_name: formattedTicket.user.first_name, last_name: formattedTicket.user.last_name };
           const techEmails = formattedTicket.teches.map(tech => tech.user.username );
-          //console.log(techEmails);
           techEmails.push(formattedTicket.user.username);
+          console.log(techEmails);
           const emailMessage = `${formattedTicket.problem_summary} (${formattedTicket.building} - Room ${formattedTicket.room_number})`;
           //See how many notes are attached to this ticket
           Note.findAll({
@@ -144,7 +144,7 @@ router.post('/', (req, res) => {
               formattedNotes = formattedNotes.map(note => {
                 return `${note.tech_note} - added by ${note.user.first_name} ${note.user.last_name}`
               });
-              //assignTicket(senderInfo,techEmails,formattedTicket.ticket_title,emailMessage,formattedNotes).catch(err => console.log(err));
+              assignTicket(senderInfo,techEmails,formattedTicket.ticket_title,emailMessage,formattedNotes).catch(err => console.log(err));
             }
           })
           .catch(err => {
