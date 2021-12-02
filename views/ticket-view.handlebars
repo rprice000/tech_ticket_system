@@ -6,45 +6,59 @@
                 <button type='submit' id='status' data-status='{{ ticketData.ticket_status }}'></button>
             </form>
             <form id="ticket-update-form">
-                <div>
-                    <div>
+                <div class="flex-row">
+                    <div class="left-side">
+                        <h2>Ticket Information</h2>
                         <div>
-                            <label for="problem_title">Title:</label>
+                            <label for="problem_title"><h3>Title:</h3></label>
                             <input type="text" name="problem_title" id="problem_title" value="{{ ticketData.problem_title }}" />
                         </div>
                         <div>
-                            <label for="problem_summary">Summary:</label>
+                            <label for="problem_summary"><h3>Summary:</h3></label>
                             <textarea id="problem_summary" name="problem_summary">{{ ticketData.problem_summary }}</textarea>
                         </div>
                         <div>
-                            <label for="building">Building:</label>
+                            <label for="building"><h3>Building:</h3></label>
                             <input type="text" name="building" id="building" value="{{ ticketData.building }}" />
                         </div>
                         <div>
-                            <label for="room_number">Room Number:</label>
+                            <label for="room_number"><h3>Room Number:</h3></label>
                             <input type="number" name="room_number" id="room_number" value="{{ ticketData.room_number }}" />
                         </div>
                     </div>
-                    <div>
-                        <h3>Assign Techs</h3>
-                        <div class="tech-button-div" id="tech-button-div">
-                            {{#each availableTechs }}
-                                {{> tech-button}}
-                            {{/each}}
+                    <div class="left-side">
+
+                        <div>
+                          <h3>Assign Techs</h3>
+                            <div class="tech-button-div" id="tech-button-div">
+                                {{#each availableTechs }}
+                                    {{> tech-button}}
+                                {{/each}}
+                            </div>
                         </div>
-                    </div>
+                        <div>
+                            <h3>Currently Assigned Techs</h3>
+                            <ul id="assigned-techs-list">
+                        
+                            </ul>
+                        </div>
+                        <div>
+                            <button type="submit">Submit Edits</button>
+                        </div>
+                        </div>
+
                 </div>
                 
-                <div>
+                {{!-- <div>
                     <button type="submit">Submit Edits</button>
-                </div>
+                </div> --}}
             </form>
-            <div>
+            {{!-- <div>
                 <h3>Currently Assigned Techs</h3>
                 <ul id="assigned-techs-list">
                     
                 </ul>
-            </div>
+            </div> --}}
             <script src="/javascript/editTicket.js"></script>
         {{else}}
             <div>
@@ -67,7 +81,7 @@
             <h2>Notes</h2>
             <form id="ticket-note-form">
                 <div>
-                    <label for="tech_note">Note Text:</label>
+                    <label for="tech_note"><h3>Note Text:</h3></label>
                     <textarea id="tech_note" name="tech_note"></textarea>
                 </div>
                 <input type="hidden" id="ticket_id" name="ticket_id" value="{{ ticketData.id }}" />
