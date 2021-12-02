@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Note, User, Ticket, Tech } = require('../../models');
 const assignTicket = require('../../utils/mail');
 const Op = require('sequelize').Op;
+const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
   Note.findAll({
@@ -71,7 +72,7 @@ router.get('/:id', (req, res) => {
 
 
 // Create Note
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
   //The added user_id and ticket_id properties can be included as <input type='hidden' name='user_id' value='{{user_id}}' /> in the form of the handlebars page
   Note.create({
     user_id: req.body.user_id,
@@ -161,7 +162,7 @@ router.post('/', (req, res) => {
 
 
   // Update Note
-  router.put('/:id', (req, res) => {
+  router.put('/:id', withAuth, (req, res) => {
     Note.update(req.body, {
       where: {
         id: req.params.id

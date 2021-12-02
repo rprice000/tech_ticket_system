@@ -4,7 +4,7 @@ const { Ticket, User, Note, Tech } = require('../../models');
 const Op = require('sequelize').Op;
 const assignTicket = require('../../utils/mail');
 //Authentication part
-// const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth');
 
 // WASNT SURE ABOUT THE SEQULIZE STATEMENTS
 
@@ -130,7 +130,7 @@ router.get('/:id', (req, res) => {
 
 //router.post('/', withAuth, (req, res) => {
 // POST /api/tickets  CREATES A Ticket
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
     Ticket.create({
         user_id: req.body.user_id,
         building: req.body.building,
@@ -149,7 +149,7 @@ router.post('/', (req, res) => {
 
 // UPDATES TICKET
 // PUT /api/tickets/1
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
     //If req.body includes techs, bulkCreate those techs and destroy other techs from this ticket - must remove the techs property from req.body?
     const addTechs = req.body.assignTechs ? true : false;
     const obKeys = Object.keys(req.body);

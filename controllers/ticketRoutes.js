@@ -1,9 +1,10 @@
 //Import modules
 const router = require('express').Router();
 const { User, Ticket, Note, Tech } = require('../models');
+const withAuth = require('../utils/auth');
 
 //
-router.get('/', (req, res) => {
+router.get('/', withAuth, (req, res) => {
     Ticket.findAll({
         include: [
             {
@@ -29,7 +30,7 @@ router.get('/', (req, res) => {
 });
 
 //Look at one ticket by id
-router.get('/:id', (req, res) => {
+router.get('/:id', withAuth, (req, res) => {
     Ticket.findOne({
         where: {
             id: req.params.id
