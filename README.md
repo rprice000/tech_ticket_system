@@ -29,7 +29,8 @@ Technology support needs increase as an organization grows and expands its techn
 - npm install connect-session-sequelize
 - npm install express-handlebars
 - npm install dotenv
-- npm install bcrypt nodemailer
+- npm install bcrypt 
+- npm install nodemailer
 
 ## Screenshots
 *** NEED SCREENSHOTS AND SCREENSHOT LOCTIONS
