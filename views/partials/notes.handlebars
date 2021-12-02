@@ -1,9 +1,10 @@
-<form class="tech-notes">
-    <div>
-        <textarea name="notes-body"></textarea>
-    </div>
-
-    <div>
-        <button type="submit">add notes</button>
-    </div>
-</form>
+<div class="notes">
+    {{#each this}}
+    <section class="note">
+         <p>  Added By {{ user.first_name }} {{ user.last_name }} on {{created_at}}</p>
+        <div class="text">
+            {{ tech_note }}
+            </div>
+    </section>
+    {{/each}}
+</div>

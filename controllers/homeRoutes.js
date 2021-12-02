@@ -79,8 +79,8 @@ router.get('/dashboard', withAuth, (req, res) => {
     });
 });
 
-// router.get('/', (req, res) => {
-//     res.json('homepage');
-// });
+router.get('/homepage', (req, res) => {
+    res.render('homepage');
+});
 module.exports = router;
 
